@@ -1,13 +1,13 @@
 " Last updated: 2016/8/13
-
-
+"
 "
 " VIM-PLUG
 " 
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
+" function! DoRemote(arg)
+"   UpdateRemotePlugins
+" endfunction
+"
 call plug#begin('~/.config/nvim/bundle')
 " airline
 Plug 'vim-airline/vim-airline'
@@ -22,25 +22,33 @@ Plug 'tpope/vim-fugitive'
 Plug 'blueshirts/darcula'
 Plug 'tomasr/molokai'
 Plug 'baskerville/bubblegum'
+Plug 'jacoborus/tender.vim'
 " pipe
 Plug 'krisajenkins/vim-pipe'
 call plug#end()
 
 
 " FIXME: Debugging
-set rtp+=C:\msys64\home\w\wkspace\vim-instant-markdown\after
+" set rtp+=C:\msys64\home\w\wkspace\vim-instant-markdown\after
 
 
 "
 " COMMONS
 " 
 
-colors bubblegum-256-dark
-let g:airline_theme = "bubblegum"
+set t_Co=16777216
+if (has("termguicolors"))
+ set termguicolors
+endif
+colors tender 
+let g:airline_theme = 'tender'
+" set t_Co=256
+" colors bubblegum-256-dark
+" let g:airline_theme = "bubblegum"
 
 syntax on
 set bg=dark
-set ts=4
+set ts=4 
 set sw=4
 set noet
 set cin
@@ -67,8 +75,8 @@ if has("gui_running")
 	if has("gui_gtk2")
 		set gfn=Consolas\ 13
 	elseif has("gui_win32")
-		set gfn=Consolas:h14:cANSI
-		set guifontwide=SimHei:h14:cANSI
+		set gfn=Consolas:h13:cANSI
+		set guifontwide=SimHei:h13:cANSI
 	endif
 	set guioptions-=T
 	set guioptions-=m
@@ -265,3 +273,4 @@ function! s:table() range
 	exe "'<,'>s/|-/| /g"
 	exe "'<,'>s/^| \\|\\s*|$\\||//g"
 endfunction
+
