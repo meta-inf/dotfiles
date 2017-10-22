@@ -25,11 +25,12 @@ Plug 'baskerville/bubblegum'
 Plug 'jacoborus/tender.vim'
 " pipe
 Plug 'krisajenkins/vim-pipe'
+" Deoplete
+if (has('nvim') && has('python3'))
+	Plug 'Shougo/deoplete.nvim'
+	Plug 'zchee/deoplete-jedi'
+endif
 call plug#end()
-
-
-" FIXME: Debugging
-" set rtp+=C:\msys64\home\w\wkspace\vim-instant-markdown\after
 
 
 "
@@ -149,9 +150,18 @@ set encoding=utf-8
 " PLUGINS
 "
 
+" ALE
+"
+if exists("g:ale_completion_delay")
+	error
+	let g:airline#extensions#ale#enabled = 1
+	let g:ale_completion_enabled = 1
+	let g:ale_python_autopep8_executable = 'python3 -m autopep8'
+endif
+
 " deoplete
 "
-if exists("g:deoplete#enable_at_startup") 
+if (has('nvim') && has('python3'))
 	let g:deoplete#enable_at_startup = 1
 	" Re-generate popup menu when needed
 	inoremap <expr><C-h>
@@ -165,6 +175,12 @@ if exists("g:deoplete#enable_at_startup")
 	" deoplete-clang
 	let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
 	let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+	" Python stuff
+	let g:deoplete#sources#jedi#server_timeout = 40
+	let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
+	let g:python_host_prog = '/usr/bin/python3'
+	let g:deoplete#sources#jedi#show_docstring = 1
 	
 	" <Tab> completion:
 	" 1. If popup menu is visible, select and insert next item
