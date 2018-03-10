@@ -30,6 +30,7 @@ if (has('nvim') && has('python3'))
 	Plug 'Shougo/deoplete.nvim'
 	Plug 'zchee/deoplete-jedi'
 endif
+Plug 'Vimjas/vim-python-pep8-indent'
 call plug#end()
 
 
@@ -236,7 +237,7 @@ function OCamlSetup()
 endfunction
 
 function PythonSetup()
-	setlocal colorcolumn=100
+	setlocal colorcolumn=80
 	setlocal ts=4
 	setlocal sw=4
 	setlocal et
