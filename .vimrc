@@ -228,7 +228,7 @@ if exists("has_merlin")
 endif
 
 function OCamlSetup()
-	setlocal ts=2 sw=2 et nocin ai
+	setlocal ts=2 sw=2 sts=2 et nocin ai
 	" Merlin bindings; merlin has set <leader>t by default.
 	nnoremap <buffer> <leader>L :Locate<CR>
 	nnoremap <buffer> <F9> :ErrorCheck<CR>
@@ -238,8 +238,7 @@ endfunction
 
 function PythonSetup()
 	setlocal colorcolumn=80
-	setlocal ts=4
-	setlocal sw=4
+	setlocal ts=2 sw=2 sts=2
 	setlocal et
 	setlocal ai
 endfunction
