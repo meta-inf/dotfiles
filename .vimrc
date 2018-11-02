@@ -25,6 +25,7 @@ Plug 'baskerville/bubblegum'
 Plug 'jacoborus/tender.vim'
 " pipe
 Plug 'krisajenkins/vim-pipe'
+Plug 'kien/ctrlp.vim'
 " Deoplete
 if (has('nvim') && has('python3'))
 	Plug 'Shougo/deoplete.nvim'
@@ -42,14 +43,14 @@ set t_Co=16777216
 if (has("termguicolors"))
  set termguicolors
 endif
-colors tender 
+" colors tender 
 let g:airline_theme = 'tender'
 " set t_Co=256
-" colors bubblegum-256-dark
+colors bubblegum-256-dark
 " let g:airline_theme = "bubblegum"
 
 syntax on
-set bg=dark
+" set bg=dark
 set ts=4 
 set sw=4
 set noet
@@ -228,7 +229,7 @@ if exists("has_merlin")
 endif
 
 function OCamlSetup()
-	setlocal ts=2 sw=2 sts=2 et nocin ai
+	setlocal ts=2 sw=2 et nocin ai
 	" Merlin bindings; merlin has set <leader>t by default.
 	nnoremap <buffer> <leader>L :Locate<CR>
 	nnoremap <buffer> <F9> :ErrorCheck<CR>
@@ -237,10 +238,26 @@ function OCamlSetup()
 endfunction
 
 function PythonSetup()
-	setlocal colorcolumn=80
-	setlocal ts=2 sw=2 sts=2
-	setlocal et
-	setlocal ai
+	if !exists("g:pyDefault")
+		let g:pyDefault = "PS2()"
+	endif
+	call eval(g:pyDefault)
+	setlocal et ai
+endfunction
+
+function PS1()
+	let g:pyDefault = "PS1()"
+	setlocal colorcolumn=80 ts=2 sw=2 sts=2
+endfunction
+
+function PS2()
+	let g:pyDefault = "PS2()"
+	setlocal colorcolumn=100 ts=2 sw=2 sts=2
+endfunction
+
+function PS3()
+	let g:pyDefault = "PS3()"
+	setlocal colorcolumn=120 ts=4 sw=4 sts=4
 endfunction
 
 autocmd FileType c,cpp call CFamilySetup()
