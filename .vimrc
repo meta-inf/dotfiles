@@ -27,13 +27,17 @@ Plug 'jacoborus/tender.vim'
 Plug 'krisajenkins/vim-pipe'
 Plug 'kien/ctrlp.vim'
 " Deoplete
-if (has('nvim') && has('python3'))
+if has('nvim')
 	Plug 'Shougo/deoplete.nvim'
-	Plug 'zchee/deoplete-jedi'
+	if has('python3')
+		Plug 'zchee/deoplete-jedi'
+	endif
 endif
+" Haskell stuff
 if (has('nvim') && executable("stack"))
 	let g:haskell_ready = 1
 	Plug 'parsonsmatt/intero-neovim'
+	" Plug 'eagletmt/neco-ghc'
 endif
 Plug 'Vimjas/vim-python-pep8-indent'
 call plug#end()
@@ -92,6 +96,10 @@ if has("gui_running")
 endif
 
 let g:tex_flavor=1 " use latex
+
+if has('nvim')
+	tnoremap <Esc> <C-\><C-n><C-w>w
+endif
 
 " w!!
 if !has("win32") && !has("win64")
@@ -206,6 +214,10 @@ if (has('nvim') && has('python3'))
 endif
 
 if exists("g:haskell_ready")
+
+  " let g:haskellmode_completion_ghc = 0
+  " autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
   augroup interoMaps
     au!
     " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
@@ -251,10 +263,10 @@ if exists("g:haskell_ready")
   let g:intero_type_on_hover = 1
   
   " Change the intero window size; default is 10.
-  let g:intero_window_size = 15
+  let g:intero_window_size = 10
   
   " Sets the intero window to split vertically; default is horizontal
-  let g:intero_vertical_split = 1
+  " let g:intero_vertical_split = 1
   
   " OPTIONAL: Make the update time shorter, so the type info will trigger faster.
   set updatetime=1000
