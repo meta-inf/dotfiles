@@ -2,6 +2,8 @@ mkdir -p ~/.config
 ln -s "$(pwd)/.vim" ~/.config/nvim
 ln -s "$(pwd)/.vim" ~/.vim
 ln -s "$(pwd)/.vimrc" ~/.vimrc
+# `.vim` is no longer tracked for changes here
+ln -s "$(pwd)/.vimrc" ~/.config/nvim/init.vim
 
 mkdir -p ~/.local/bin
 
