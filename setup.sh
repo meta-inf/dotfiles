@@ -1,4 +1,5 @@
 mkdir -p ~/.config
+ln -s "$(pwd)/.tmux.conf" ~/.tmux.conf
 ln -s "$(pwd)/.vim" ~/.config/nvim
 ln -s "$(pwd)/.vim" ~/.vim
 ln -s "$(pwd)/.vimrc" ~/.vimrc
