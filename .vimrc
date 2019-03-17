@@ -56,7 +56,7 @@ endif
 " colors tender 
 let g:airline_theme = 'tender'
 " set t_Co=256
-colors molokai
+colors default
 " let g:airline_theme = "bubblegum"
 
 syntax on
