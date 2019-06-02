@@ -56,7 +56,11 @@ endif
 " colors tender 
 let g:airline_theme = 'tender'
 " set t_Co=256
-colors default
+if $TERM == "screen-256color"
+	colors bubblegum-256-light
+else
+	colors delek
+endif
 " let g:airline_theme = "bubblegum"
 
 syntax on
