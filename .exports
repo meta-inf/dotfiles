@@ -1,0 +1,8 @@
+export PATH=${HOME}/.local/bin:${HOME}/anaconda3/bin:${HOME}/bin/:$PATH
+
+export CUDA_ROOT=/usr/local/cuda-10.0/
+export PATH=/usr/local/cuda-10.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64:$LD_LIBRARY_PATH
+# export LD_LIBRARY_PATH=/opt/cudnn-v7.4/lib64:/opt/cudnn-v7/lib64:/opt/cudnn-v6/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/cudnn-v7.4/lib64:$LD_LIBRARY_PATH
+export CPATH=$CPATH:${HOME}/opt/cudnn-v7.4/cuda/include

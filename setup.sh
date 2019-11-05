@@ -8,10 +8,12 @@ ln -s "$(pwd)/.vimrc" ~/.config/nvim/init.vim
 ln -s "$(pwd)/.bashrc" ~/.bashrc
 
 mkdir -p ~/.local/bin
+ln -s "$(pwd)/ag.py" ~/.local/bin/aggr
+chmod +x ~/.local/bin/aggr
 
-if [ ! -e $HOME/.exports ]; then
-	echo "export PATH=$HOME/.local/bin:$PATH" > ~/.exports
-fi
+# if [ ! -e $HOME/.exports ]; then
+# 	echo "export PATH=\$HOME/.local/bin:\$PATH" > ~/.exports
+# fi
 
 pushd ~/.local/bin
 curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -19,6 +21,7 @@ mv nvim.appimage vim
 chmod u+x vim
 popd
 
-
 git config --global user.email "wzy196@gmail.com"
 git config --global user.name "meta-inf"
+
+

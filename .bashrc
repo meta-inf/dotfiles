@@ -34,3 +34,6 @@ installjupyterkernel() {
 export PS1="(\${CUDA_VISIBLE_DEVICES:-none}) $PS1"
 
 source ${HOME}/.exports
+if [ -e ${HOME}/dotfiles/.exports ]; then
+	source ${HOME}/dotfiles/.exports
+fi
