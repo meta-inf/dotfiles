@@ -1,5 +1,5 @@
 alias tmux='tmux -2'
-alias gs='git status '
+alias gst='git status '
 alias ga='git add '
 alias gb='git branch '
 alias gc='git commit '
@@ -31,9 +31,12 @@ installjupyterkernel() {
         ipython kernel install --user --name=$1
 }
 
-export PS1="(\${CUDA_VISIBLE_DEVICES:-none}) $PS1"
+export PS1="\[\e[48;5;34m\](\${CUDA_VISIBLE_DEVICES:-none}) $PS1\[\e[0m\]"
+export EDITOR="vim"
 
-source ${HOME}/.exports
+if [ -e ${HOME}/.exports ]; then
+    source ${HOME}/.exports
+fi
 if [ -e ${HOME}/dotfiles/.exports ]; then
 	source ${HOME}/dotfiles/.exports
 fi
