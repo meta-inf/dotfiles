@@ -34,9 +34,9 @@ installjupyterkernel() {
 export PS1="\[\e[48;5;34m\](\${CUDA_VISIBLE_DEVICES:-none}) $PS1\[\e[0m\]"
 export EDITOR="vim"
 
-if [ -e ${HOME}/.exports ]; then
-    source ${HOME}/.exports
-fi
 if [ -e ${HOME}/dotfiles/.exports ]; then
 	source ${HOME}/dotfiles/.exports
+fi
+if [ -e ${HOME}/.exports ]; then
+    source ${HOME}/.exports
 fi
