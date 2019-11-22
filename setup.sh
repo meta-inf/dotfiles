@@ -14,6 +14,9 @@ chmod +x ~/.local/bin/aggr
 # if [ ! -e $HOME/.exports ]; then
 # 	echo "export PATH=\$HOME/.local/bin:\$PATH" > ~/.exports
 # fi
+if [ ! -e $HOME/.bash_profile ]; then
+	echo "source ~/.bashrc" > ~/.bash_profile
+fi
 
 pushd ~/.local/bin
 curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
