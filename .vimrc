@@ -18,6 +18,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'meta-inf/vim-instant-markdown'
 " git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
 " themes
 Plug 'blueshirts/darcula'
 Plug 'tomasr/molokai'
@@ -57,7 +58,7 @@ endif
 let g:airline_theme = 'tender'
 " set t_Co=256
 if $TERM == "screen-256color"
-	colors bubblegum-256-light
+	colors tender
 else
 	colors delek
 endif
