@@ -1,5 +1,6 @@
 alias tmux='tmux -2'
 alias gst='git status '
+alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
 alias gc='git commit '
