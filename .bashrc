@@ -16,27 +16,35 @@ alias get='git '
 alias sact='source activate '
 alias jbl='jupyter notebook list'
 
+register-venv() {
+    if [ -z "$CONDA_DEFAULT_ENV" ]; then
+        echo "not in conda env"
+        return 1
+    fi
+    ipython kernel install --user --name=$CONDA_DEFAULT_ENV
+}
+
 usegpu() {
-        export CUDA_VISIBLE_DEVICES=$1
+    export CUDA_VISIBLE_DEVICES=$1
 }
 
 gclone() {
-        git clone https://github.com/$1.git
+    git clone https://github.com/$1.git
 }
 
 gclonepriv() {
-        git clone git@github.com:$1.git
+    git clone git@github.com:$1.git
 }
 
 installjupyterkernel() {
-        ipython kernel install --user --name=$1
+    ipython kernel install --user --name=$1
 }
 
 export PS1="\[\e[48;5;34m\](\${CUDA_VISIBLE_DEVICES:-none}) $PS1\[\e[0m\]"
 export EDITOR="vim"
 
 if [ -e ${HOME}/dotfiles/.exports ]; then
-	source ${HOME}/dotfiles/.exports
+    source ${HOME}/dotfiles/.exports
 fi
 if [ -e ${HOME}/.exports ]; then
     source ${HOME}/.exports
