@@ -40,6 +40,21 @@ installjupyterkernel() {
     ipython kernel install --user --name=$1
 }
 
+usecuda() {
+    CR=/usr/local/cuda-$1
+    if ! [[ -d $CR ]]; then
+        CR=$HOME/.local/cuda-$1
+        if ! [[ -d $CR ]]; then
+            echo "cuda-$1 not found"
+            return 1
+        fi
+    fi
+    export CUDA_ROOT=$CR
+    export PATH=$CUDA_ROOT/bin:$PATH
+    export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$LD_LIBRARY_PATH
+    export CPATH=$CPATH:${HOME}/opt/cudnn-v7.4/cuda/include:/data/ziyu/cuda8/opt/cudnn-v6/include
+}
+
 export PS1="\[\e[48;5;34m\](\${CUDA_VISIBLE_DEVICES:-none}) $PS1\[\e[0m\]"
 export EDITOR="vim"
 
