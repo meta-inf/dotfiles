@@ -28,3 +28,4 @@ git config --global user.email "wzy196@gmail.com"
 git config --global user.name "meta-inf"
 
 echo "\n" | ~/.local/bin/vim +PlugInstall +qall!
+g++ ag.cc -o ag
