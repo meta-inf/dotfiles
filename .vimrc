@@ -53,6 +53,10 @@ call plug#end()
 set t_Co=16777216
 if (has("termguicolors"))
  set termguicolors
+ if ! has("nvim")  " https://github.com/vim/vim/issues/993
+   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+ endif
 endif
 " colors tender 
 let g:airline_theme = 'tender'
@@ -60,7 +64,7 @@ let g:airline_theme = 'tender'
 if $TERM == "screen-256color"
 	colors tender
 else
-	colors delek
+	colors desert
 endif
 " let g:airline_theme = "bubblegum"
 
