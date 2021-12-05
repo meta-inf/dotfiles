@@ -27,7 +27,6 @@ Plug 'jacoborus/tender.vim'
 " pipe
 Plug 'krisajenkins/vim-pipe'
 Plug 'kien/ctrlp.vim'
-Plug 'hecal3/vim-leader-guide'
 " Deoplete
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim'
@@ -83,9 +82,6 @@ set mouse=a
 set showcmd
 set wildmenu
 set backspace=indent,eol,start
-
-let mapleader = ' '
-let maplocalleader = '\'
 
 " Use some 8-bit colors when launched from cmd.exe
 if has("win32") && !has("gui_running")
@@ -149,35 +145,6 @@ inoremap <C-J> <Esc>:call SwitchP()<CR>a
 inoremap <C-K> <Esc>:call SwitchN()<CR>a
 vnoremap <C-J> <Esc>:call SwitchP()<CR>v
 vnoremap <C-K> <Esc>:call SwitchN()<CR>v
-
-
-"
-" Leader guide
-"
-
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
-
-" Define prefix dictionary
-let g:lmap =  {}
-
-" Second level dictionaries:
-let g:lmap.b = { 
-			\'name' : 'Buffer',
-			\'j' : ['bpre', 'Prev'],
-			\'k' : ['bnex', 'Next'],
-			\}
-
-let g:lmap.t = { 
-			\'name' : 'Tab',
-			\'j' : ['call SwitchP()', 'Prev'],
-			\'k' : ['call SwitchN()', 'Next'],
-			\}
-
-let g:lmap.m = { 'name' : 'Misc' }
-noremap <leader>yf :let @"="\n".expand("%:p")."\n".line(".").": ".getline(line("."))<Enter>
-let g:lmap.m.f = ['let @"="\n".expand("%:p")."\n".line(".").": ".getline(line("."))', 'Copy filename etc']
 
 
 " encoding
