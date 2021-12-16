@@ -13,7 +13,7 @@ alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
-alias sact='source deactivate && source activate '
+alias sact='conda deactivate && conda activate '
 alias cact='conda deactivate && conda activate '
 alias jbl='jupyter notebook list'
 
@@ -55,7 +55,13 @@ usecuda() {
     export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$LD_LIBRARY_PATH
 }
 
-export PS1="\[\e[48;5;34m\](\${CUDA_VISIBLE_DEVICES:-none}) $PS1\[\e[0m\]"
+if [ -z $althostname ]; then
+    althostname=$HOSTNAME
+fi
+if [[ `hostname` == *"gpu"* || -n $IS_SERVER ]]; then
+    visibleGpu="(\${CUDA_VISIBLE_DEVICES:-all})"
+fi
+export PS1='\[\e]0;\u:\w\a\]'$visibleGpu' \[\033[01;32m\][$althostname] \[\033[00m\]\[\033[01;34m\]\w\[\033[00m\] '
 export EDITOR="vim"
 
 if [ -e ${HOME}/dotfiles/.exports ]; then
