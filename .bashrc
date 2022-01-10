@@ -13,7 +13,7 @@ alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
-alias sact='conda deactivate && conda activate '
+alias sact='source deactivate && source activate '
 alias cact='conda deactivate && conda activate '
 alias jbl='jupyter notebook list'
 

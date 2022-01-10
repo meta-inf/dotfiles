@@ -28,12 +28,6 @@ Plug 'jacoborus/tender.vim'
 Plug 'krisajenkins/vim-pipe'
 Plug 'kien/ctrlp.vim'
 " Deoplete
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim'
-	if has('python3')
-		Plug 'zchee/deoplete-jedi'
-	endif
-endif
 " Haskell stuff
 if (has('nvim') && executable("stack"))
 	let g:haskell_ready = 1
@@ -164,45 +158,6 @@ if exists("g:ale_completion_delay")
 	let g:airline#extensions#ale#enabled = 1
 	let g:ale_completion_enabled = 1
 	let g:ale_python_autopep8_executable = 'python3 -m autopep8'
-endif
-
-" deoplete
-"
-if (has('nvim') && has('python3'))
-	let g:deoplete#enable_at_startup = 1
-	" Re-generate popup menu when needed
-	inoremap <expr><C-h>
-	\ deoplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS>
-	\ deoplete#smart_close_popup()."\<C-h>"
-	
-	" Close the documentation window when completion is done
-	autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-	
-	" deoplete-clang
-	let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-	let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-
-	" Python stuff
-	let g:deoplete#sources#jedi#server_timeout = 40
-	let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
-	let g:python_host_prog = '/usr/bin/python3'
-	let g:deoplete#sources#jedi#show_docstring = 1
-	
-	" <Tab> completion:
-	" 1. If popup menu is visible, select and insert next item
-	" 2. Otherwise, if within a snippet, jump to next input
-	" 3. Otherwise, if preceding chars are whitespace, insert tab char
-	" 4. Otherwise, start manual autocomplete
-	imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
-		\ : (<SID>is_whitespace() ? "\<Tab>"
-		\ : deoplete#mappings#manual_complete())
-	
-	smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
-		\ : (<SID>is_whitespace() ? "\<Tab>"
-		\ : deoplete#mappings#manual_complete())
-	
-	inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 endif
 
 if exists("g:haskell_ready")
