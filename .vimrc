@@ -18,7 +18,6 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'meta-inf/vim-instant-markdown'
 " git
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sleuth'
 " themes
 Plug 'blueshirts/darcula'
 Plug 'tomasr/molokai'
@@ -27,59 +26,32 @@ Plug 'jacoborus/tender.vim'
 " pipe
 Plug 'krisajenkins/vim-pipe'
 Plug 'kien/ctrlp.vim'
-" Deoplete
-" Haskell stuff
-if (has('nvim') && executable("stack"))
-	let g:haskell_ready = 1
-	Plug 'parsonsmatt/intero-neovim'
-	" Plug 'eagletmt/neco-ghc'
+Plug 'spinks/vim-leader-guide'
+" CoC
+let node_version = system("node -v")
+if has("nvim") && node_version[0] == "v" && str2nr(node_version[1:2]) >= 12
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 Plug 'Vimjas/vim-python-pep8-indent'
-call plug#end()
 
+call plug#end()
 
 
 "
 " COMMONS
 " 
 
-set t_Co=16777216
-if (has("termguicolors"))
- set termguicolors
- if ! has("nvim")  " https://github.com/vim/vim/issues/993
-   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
- endif
-endif
-" colors tender 
 let g:airline_theme = 'tender'
-" set t_Co=256
-if $TERM == "screen-256color"
-	colors tender
-else
-	colors desert
-endif
-" let g:airline_theme = "bubblegum"
-
-syntax on
-" set bg=dark
-set ts=4 
-set sw=4
-set noet
-set cin
-set cc=80
-set nu
-set hlsearch
-set incsearch
-set cole=0
-set mouse=a
-set showcmd
-set wildmenu
-set backspace=indent,eol,start
-
 " Use some 8-bit colors when launched from cmd.exe
 if has("win32") && !has("gui_running")
 	colors pablo
+else
+    set t_Co=16777216
+    " set t_Co=256
+    if (has("termguicolors"))
+     set termguicolors
+    endif
+    colors bubblegum-256-dark
 endif
 
 " gui
@@ -94,6 +66,23 @@ if has("gui_running")
 	set guioptions-=m
 	set guioptions-=r
 endif
+
+syntax on
+" set bg=dark
+set et ai ts=4 sw=4
+" set noet cin
+set cc=96
+set nu
+set hlsearch
+set incsearch
+set cole=0
+set mouse=a
+set showcmd
+set wildmenu
+set backspace=indent,eol,start
+
+let mapleader = ' '
+let maplocalleader = '\'
 
 let g:tex_flavor=1 " use latex
 
@@ -151,87 +140,17 @@ set encoding=utf-8
 " PLUGINS
 "
 
-" ALE
-"
-if exists("g:ale_completion_delay")
-	error
-	let g:airline#extensions#ale#enabled = 1
-	let g:ale_completion_enabled = 1
-	let g:ale_python_autopep8_executable = 'python3 -m autopep8'
-endif
-
-if exists("g:haskell_ready")
-
-  " let g:haskellmode_completion_ghc = 0
-  " autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-  augroup interoMaps
-    au!
-    " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
-  
-    " Background process and window management
-    au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
-    au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
-  
-    " Open intero/GHCi split horizontally
-    au FileType haskell nnoremap <silent> <leader>io :InteroOpen<CR>
-    " Open intero/GHCi split vertically
-    au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
-    au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
-  
-    " Reloading (pick one)
-    " Automatically reload on save
-    au BufWritePost *.hs InteroReload
-    " Manually save and reload
-    au FileType haskell nnoremap <silent> <leader>wr :w \| :InteroReload<CR>
-  
-    " Load individual modules
-    au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
-    au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
-  
-    " Type-related information
-    " Heads up! These next two differ from the rest.
-    au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
-    au FileType haskell map <silent> <leader>T <Plug>InteroType
-    au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
-  
-    " Navigation
-    au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
-  
-    " Managing targets
-    " Prompts you to enter targets (no silent):
-    au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
-  augroup END
-  
-  " Intero starts automatically. Set this if you'd like to prevent that.
-  " let g:intero_start_immediately = 0
-  
-  " Enable type information on hover (when holding cursor at point for ~1 second).
-  let g:intero_type_on_hover = 1
-  
-  " Change the intero window size; default is 10.
-  let g:intero_window_size = 10
-  
-  " Sets the intero window to split vertically; default is horizontal
-  " let g:intero_vertical_split = 1
-  
-  " OPTIONAL: Make the update time shorter, so the type info will trigger faster.
-  set updatetime=1000
-endif
-
-function! s:is_whitespace() "{{{
-	let col = col('.') - 1
-	return ! col || getline('.')[col - 1] =~? '\s'
-endfunction "}}}
-
-
 " airline
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 
+" leader-guide
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 
-" vim-instant-markdown
-
+if has_key(plugs, 'coc.nvim')
+    source ~/dotfiles/coc-rc.vim
+endif
 
 "
 " LANGUAGE-SPECIFIC CONFIGURATIONS
@@ -257,26 +176,8 @@ function OCamlSetup()
 endfunction
 
 function PythonSetup()
-	if !exists("g:pyDefault")
-		let g:pyDefault = "PS2()"
-	endif
-	call eval(g:pyDefault)
 	setlocal et ai
-endfunction
-
-function PS1()
-	let g:pyDefault = "PS1()"
-	setlocal colorcolumn=80 ts=2 sw=2 sts=2
-endfunction
-
-function PS2()
-	let g:pyDefault = "PS2()"
-	setlocal colorcolumn=100 ts=2 sw=2 sts=2
-endfunction
-
-function PS3()
-	let g:pyDefault = "PS3()"
-	setlocal colorcolumn=120 ts=4 sw=4 sts=4
+    set fdm=indent foldlevel=99
 endfunction
 
 autocmd FileType c,cpp call CFamilySetup()
@@ -284,6 +185,7 @@ autocmd FileType ocaml call OCamlSetup()
 autocmd FileType python call PythonSetup()
 autocmd FileType asm setlocal ts=8 noet
 autocmd FileType html,javascript setlocal ts=2 et sw=2 ai
+au FileType haskell setlocal ts=2 et sw=2 ai
 
 function PandocSetup()
 	setlocal cole=0 sw=4 ts=4 nospell et " ts,sw>=4 is required
