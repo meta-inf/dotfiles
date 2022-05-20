@@ -26,5 +26,7 @@ popd
 
 git config --global user.email "wzy196@gmail.com"
 git config --global user.name "meta-inf"
+git config --global core.autocrlf input
 
 echo "\n" | ~/.local/bin/vim +PlugInstall +qall!
+g++ ag.cc -o ag
